@@ -1,3 +1,1 @@
 # minispinner.github.io
-
-test
