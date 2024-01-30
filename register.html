@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-auth-compat.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>FJ Zeiterfassung</title>
+</head>
+<body>
+<header>
+
+</header>
+
+<div class="main-content">
+    <div class="left-content">
+        <img src="/pics/FJ.png" alt="FJ Logo">
+        <h1>Zeiterfassung</h1>
+    </div>
+
+    <div class="container">
+
+            <h2>Mitarbeiter anlegen</h2>
+            <form id="registerForm">
+                <label style= "margin-bottom: 5px;" for="first_name">Vorname:</label>
+                <input style= "margin-bottom: 10px;" type="text" id="first_name" name="first_name" required>
+
+                <label style= "margin-bottom: 5px;" for="last_name">Nachname:</label>
+                <input style= "margin-bottom: 10px;" type="text" id="last_name" name="last_name" required>
+
+                <label style= "margin-bottom: 5px;" for="mail">E-Mail:</label>
+                <input style= "margin-bottom: 10px;" type="email" id="mail" name="mail" required>
+
+                <label style= "margin-bottom: 5px;" for="password">Passwort:</label>
+                <input style= "margin-bottom: 10px;" type="password" id="password" name="password" required>
+
+                <label style= "margin-bottom: 5px;" for="password_repeat">Passwort:</label>
+                <input style= "margin-bottom: 10px;" type="password" id="password_repeat" name="password_repeat" required>
+
+                <button type="button" onclick="createUser()">Mitarbeiter anlegen</button>
+                <button type="button" onclick="adminPage()">Abbrechen</button>
+            </form>
+        </div>
+</div>
+
+    <script src="script.js"></script>
+    <script>checkStatus()</script>
+
+</body>
+</html>

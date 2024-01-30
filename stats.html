@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-auth-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.2.13/dist/semantic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.2.13/dist/semantic.min.css">
+
+    <link rel="stylesheet" href="./styles.css">
+
+    <title>FJ Zeiterfassung</title>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="header-container">
+
+            <img src="/pics/FJ.png" alt="FJ Logo" class="header-image">
+
+        </div>
+
+        <div class="logout-button-container">
+
+            <button type="button" onclick="adminPage()">Mitarbeiter</button>
+            <button type="button" onclick="signOut()">Logout</button>
+
+        </div>
+    </header>
+    <div id="ladeAnimation">
+        <div class="spinner"></div>
+    </div>
+
+
+    <div style="width: 90%; margin: 20px; position: relative;" class="container">
+        <form style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap;">
+
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <!-- Datumseingaben -->
+                <label for="daterange1">
+                    <span>Datum </span>
+                </label>
+                <input type="date" id="daterange1" value="date" required="">
+                <label for="daterange2">
+                    <span>bis </span>
+                </label>
+                <input type="date" id="daterange2" value="date" required="">
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 10px; margin-left: auto; min-width: 40%;">
+                <!-- User-Select und Buttons -->
+                <div class="ui form" style="margin-right: 20px;">
+                    <div class="inline field" style="display: flex; align-items: center; width: 100%">
+                        <label for="userSelect">
+                            <span>Mitarbeiter</span>
+                        </label>
+                        <select id="userSelect" multiple="" class="label ui selection fluid dropdown">
+                            <option value="">Alle</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="button" onclick="setData()">Update</button>
+                <button type="reset" onclick ="clearDropdown()">Reset</button>
+            </div>
+
+        </form>
+    </div>
+
+    <div style="width: 90%; position: relative;" class="container">
+        <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap;">
+            <h2>Arbeitszeit in Stunden</h2>
+            <div style="width: 90%;">
+                <canvas id="statsChart">
+
+                </canvas>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="script.js"></script>
+    <script>checkStatus()</script>
+    <script src="admin.js"></script>
+    <script>createChart()</script>
+    <script>loadStats()</script>
+    <script>
+        $('.label.ui.dropdown')
+            .dropdown('refresh');
+
+        $('.no.label.ui.dropdown')
+            .dropdown({
+                useLabels: false
+            });
+    </script>
+
+</body>
+</html>
