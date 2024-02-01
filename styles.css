@@ -91,9 +91,6 @@ body {
     margin-bottom: 10px; /* Abstand zwischen dem Bild und dem Titel */
 }
 
-/* Rest Ihres CSS bleibt unverändert */
-
-
 .logout-button-container {
     position: fixed;
     top: 20px;
