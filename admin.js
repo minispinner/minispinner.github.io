@@ -307,7 +307,6 @@ async function setData() {
 
 
                     for (let day = new Date(startDay); day <= endDay; day.setDate(day.getDate() + 1)) {
-                        console.log(doc)
                         const result = processActions(doc.actions, day);
                         data.push(result.data);
                         label.push(result.label);
@@ -381,7 +380,6 @@ async function setUserData() {
 
 
             for (let day = new Date(startDay); day <= endDay; day.setDate(day.getDate() + 1)) {
-                console.log(doc)
                 const result = processActions(doc.actions, day);
                 data.push(result.data);
                 label.push(result.label);
