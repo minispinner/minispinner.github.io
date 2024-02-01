@@ -17,35 +17,35 @@
     <title>FJ Zeiterfassung</title>
 </head>
 
-<body>
+<body style="height: 100%">
 
-<header class="site-header">
-    <div class="header-container">
+    <header class="site-header">
+        <div class="header-container">
 
-        <img src="/pics/FJ.png" alt="FJ Logo" class="header-image">
+            <img src="/pics/FJ.png" alt="FJ Logo" class="header-image">
 
+        </div>
+
+        <div class="logout-button-container">
+
+            <button type="button" onclick="signOut()">Logout</button>
+
+        </div>
+    </header>
+    <div id="ladeAnimation">
+        <div class="spinner"></div>
     </div>
 
-    <div class="logout-button-container">
+    <div style="width: 90%; max-height: 90%; position: relative; margin: 20px" class="container">
+        <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap;">
+            <h2>Arbeitszeit in Stunden</h2>
+            <div style="width: 90%;">
+                <canvas id="statsChart">
 
-        <button type="button" onclick="signOut()">Logout</button>
-
-    </div>
-</header>
-<div id="ladeAnimation">
-    <div class="spinner"></div>
-</div>
-
-<div style="width: 90%; max-height: 90%; position: relative; margin: 20px" class="container">
-    <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap;">
-        <h2>Arbeitszeit in Stunden</h2>
-        <div style="width: 90%;">
-            <canvas id="statsChart">
-
-            </canvas>
+                </canvas>
+            </div>
         </div>
     </div>
-</div>
 
 
 
