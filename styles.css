@@ -8,6 +8,7 @@ body {
     align-items: center;
     justify-content: flex-start;
     height: auto;
+    max-height: max-content;
 }
 
 .site-header {
