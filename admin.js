@@ -121,7 +121,7 @@ async function setUsers() {
             const currentDate = new Date();
 
             const firstDayOfCurrentMonth = await new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-            const DayOfCurrentMonth = await new Date();
+            const lastDayOfCurrentMonth =await new Date(currentDate.getFullYear(), currentDate.getMonth() +1, 0);
 
             const lastDayOfLastMonth = await new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
             const firstDayOfLastMonth = await new Date(currentDate.getFullYear(), currentDate.getMonth() -1, 1);
@@ -129,7 +129,7 @@ async function setUsers() {
             let currentMonthTime;
             let lastMonthTime;
 
-            await getUserTimes(user.uid, firstDayOfCurrentMonth.getTime(), DayOfCurrentMonth.getTime()).then(async (doc) => {
+            await getUserTimes(user.uid, firstDayOfCurrentMonth.getTime(), lastDayOfCurrentMonth.getTime()).then(async (doc) => {
 
                 if (doc.error) {
                     currentMonthTime = "00.00"
@@ -139,7 +139,7 @@ async function setUsers() {
                         return a.time - b.time;
                     });
 
-                    for (let day = new Date(firstDayOfCurrentMonth.getTime()); day <= DayOfCurrentMonth.getTime(); day.setDate(day.getDate() + 1)) {
+                    for (let day = new Date(firstDayOfCurrentMonth.getTime()); day <= lastDayOfCurrentMonth.getTime(); day.setDate(day.getDate() + 1)) {
                         const result = processActions(doc.actions, day);
                         currentMonthTime += result.decimal;
                     }
