@@ -114,6 +114,10 @@ async function setUsers() {
     getUsers().then((data) => {
         let activeUsers = data.users.filter(user => user.active === true);
 
+        activeUsers.sort(function (a, b) {
+            return a.first_name - b.first_name;
+        });
+
         activeUsers.forEach(async (user) => {
             let docElement = await document.createElement("div");
             docElement.classList.add("user-block");
