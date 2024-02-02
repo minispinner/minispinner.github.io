@@ -141,7 +141,6 @@ async function setUsers() {
 
                     for (let day = new Date(firstDayOfCurrentMonth.getTime()); day <= lastDayOfCurrentMonth.getTime(); day.setDate(day.getDate() + 1)) {
                         const result = processActions(doc.actions, day);
-                        console.log(currentMonthTime)
                         currentMonthTime += await result.total;
                     }
                 }
@@ -159,7 +158,6 @@ async function setUsers() {
 
                     for (let day = new Date(firstDayOfLastMonth.getTime()); day <= lastDayOfLastMonth.getTime(); day.setDate(day.getDate() + 1)) {
                         const result = processActions(doc.actions, day);
-                        console.log(lastMonthTime)
                         lastMonthTime += await result.total;
                         console.log(result.total)
                     }
@@ -471,7 +469,6 @@ async function setUserData() {
 function processActions(actions, date) {
     let data = [];
     let label = [];
-    let total;
     let activeAction = false;
     let totalTimeInMilliseconds = 0;
     let startTime = date.setHours(0, 0, 0, 0);
@@ -491,21 +488,22 @@ function processActions(actions, date) {
         }
     });
 
+    let total;
     if (totalTimeInMilliseconds === 0 && !activeAction) {
         // No action in the time range, push "0.0" to data
         data.push("0.0");
         label.push("no data")
     } else {
-        let diff = new Date(totalTimeInMilliseconds);
+        total = totalTimeInMilliseconds
         const hours = (diff.getHours() - 1).toString().padStart(2, '0');
         const minutes = diff.getMinutes().toString().padStart(2, '0');
         label.push("---------------")
         label.push("Insg. : " + hours + ":" + minutes)
         data.push(hours + "." + minutes);
-        total = totalTimeInMilliseconds
 
+        console.log(total)
     }
-
+    console.log(total)
     return {data, label, total};
 }
 
