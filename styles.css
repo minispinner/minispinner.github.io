@@ -230,8 +230,8 @@ p {
 }
 
 .color-dot {
-    height: 10px;
-    width: 10px;
+    height: 1.17em;
+    width: 1.17em;
     border-radius: 50%;
     display: inline-block;
     margin-left: 5px;

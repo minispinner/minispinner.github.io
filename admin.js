@@ -115,6 +115,7 @@ async function setUsers() {
         let activeUsers = data.users.filter(user => user.active === true);
 
         activeUsers.forEach((user) => {
+            console.log(user)
             let docElement = document.createElement("div");
             docElement.classList.add("user-block");
             if(user.status === "mail" || user.status === "telephone"){
