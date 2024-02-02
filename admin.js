@@ -166,8 +166,10 @@ async function setUsers() {
                 }
             });
 
-            currentMonthTime = currentMonthTime / (1000 * 60 * 60).toFixed(2);
-            lastMonthTime = lastMonthTime / (1000 * 60 * 60).toFixed(2);
+            await currentMonthTime = currentMonthTime / (1000 * 60 * 60);
+            await lastMonthTime = lastMonthTime / (1000 * 60 * 60)
+            await currentMonthTime = currentMonthTime.toFixed(2)
+            await lastMonthTime = lastMonthTime.toFixed(2)
 
             docElement.innerHTML = `
                 <img src="pics/person.png" alt="person.png" width="180" height="180">
