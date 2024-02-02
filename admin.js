@@ -114,22 +114,22 @@ async function setUsers() {
     getUsers().then((data) => {
         let activeUsers = data.users.filter(user => user.active === true);
 
-        activeUsers.forEach((user) => {
-            let docElement = document.createElement("div");
+        activeUsers.forEach(async (user) => {
+            let docElement = await document.createElement("div");
             docElement.classList.add("user-block");
 
             const currentDate = new Date();
 
-            const firstDayOfCurrentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-            const lastDayOfCurrentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+            const firstDayOfCurrentMonth = await new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            const lastDayOfCurrentMonth = await new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
 
-            const lastDayOfLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
-            const firstDayOfLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() -1, 1);
+            const lastDayOfLastMonth = await new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+            const firstDayOfLastMonth = await new Date(currentDate.getFullYear(), currentDate.getMonth() -1, 1);
 
             let currentMonthTime;
             let lastMonthTime;
 
-            getUserTimes(user.uid, firstDayOfCurrentMonth.getTime(), lastDayOfCurrentMonth.getTime()).then(async (doc) => {
+            await getUserTimes(user.uid, firstDayOfCurrentMonth.getTime(), lastDayOfCurrentMonth.getTime()).then(async (doc) => {
 
                 if (!doc.error) {
 
@@ -146,7 +146,7 @@ async function setUsers() {
                 }
             });
 
-            getUserTimes(user.uid, firstDayOfLastMonth.getTime(), lastDayOfLastMonth.getTime()).then(async (doc) => {
+            await getUserTimes(user.uid, firstDayOfLastMonth.getTime(), lastDayOfLastMonth.getTime()).then(async (doc) => {
 
                 if (!doc.error) {
 
@@ -175,7 +175,7 @@ async function setUsers() {
                 </div>
                 `;
 
-            let colorDot = docElement.querySelector('.color-dot');
+            let colorDot =  await docElement.querySelector('.color-dot');
 
             if (user.status === 'mail' || user.status === 'telephone') {
                 colorDot.style.backgroundColor = 'green';
@@ -184,7 +184,7 @@ async function setUsers() {
             } else {
                 colorDot.style.backgroundColor = 'red';
             }
-            container.appendChild(docElement);
+            await container.appendChild(docElement);
 
         });
         document.body.appendChild(container);
