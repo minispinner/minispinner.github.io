@@ -119,31 +119,32 @@ async function setUsers() {
             docElement.classList.add("user-block");
 
             docElement.innerHTML = `
-            <img src="pics/person.png" alt="person.png" width="180" height="180">
-            <h3>${user.first_name} ${user.last_name} <span class="color-dot"></span></h3>
-            <p>aktueller Monat:</p>
-            <p>letzer Monat:</p>
-            <div class="button-container">
-                <button type="button" onclick="editPage('${user.uid}')">Bearbeiten</button>
-                <button type="button" onclick="statsPage('${user.uid}')">Statistik</button>
-                <button type="button" onclick="openModal('${user.uid}')">Löschen</button>
-            </div>
-            `;
+                <img src="pics/person.png" alt="person.png" width="180" height="180">
+                <h3>${user.first_name} ${user.last_name} <span class="color-dot"></span></h3>
+                <p>aktueller Monat:</p>
+                <p>letzer Monat:</p>
+                <div class="button-container">
+                    <button type="button" onclick="editPage('${user.uid}')">Bearbeiten</button>
+                    <button type="button" onclick="statsPage('${user.uid}')">Statistik</button>
+                    <button type="button" onclick="openModal('${user.uid}')">Löschen</button>
+                </div>
+                `;
+
+            let colorDot = docElement.querySelector('.color-dot');
+
+            // Farbe basierend auf dem Status setzen
+            if (user.status === 'mail' || user.status === 'telephone') {
+                colorDot.style.backgroundColor = 'green';
+            } else if (user.status === 'pause') {
+                colorDot.style.backgroundColor = 'orange';
+            } else {
+                colorDot.style.backgroundColor = 'red';
+            }
             container.appendChild(docElement);
 
         });
         document.body.appendChild(container);
         document.getElementById('ladeAnimation').style.display = 'none';
-
-        activeUsers.forEach(async (user)  => {
-            if(user.status === "mail" || user.status === "telephone"){
-                document.querySelector('.color-dot').style.backgroundColor = 'green';
-            } else if (user.status === "pause") {
-                document.querySelector('.color-dot').style.backgroundColor = 'orange';
-            } else {
-                document.querySelector('.color-dot').style.backgroundColor = 'red';
-            }
-        });
     });
 }
 
