@@ -130,7 +130,7 @@ async function setUsers() {
             let currentMonthTime = 0;
             let lastMonthTime = 0;
 
-            await getUserTimes(user.uid, firstDayOfCurrentMonth.getTime(), lastDayOfCurrentMonth.getTime()).then(async (doc) => {
+            await getUserTimes(user.uid, firstDayOfCurrentMonth, lastDayOfCurrentMonth).then(async (doc) => {
 
                 if (doc.error) {
                     currentMonthTime = "0.00"
@@ -140,14 +140,14 @@ async function setUsers() {
                         return a.time - b.time;
                     });
 
-                    for (let day = new Date(firstDayOfCurrentMonth.getTime()); day <= lastDayOfCurrentMonth.getTime(); day.setDate(day.getDate() + 1)) {
+                    for (let day = new Date(firstDayOfCurrentMonth); day <= lastDayOfCurrentMonth; day.setDate(day.getDate() + 1)) {
                         const result = processActions(doc.actions, day);
                         currentMonthTime += result.totalTimeInMilliseconds;
                     }
                 }
             });
 
-            await getUserTimes(user.uid, firstDayOfLastMonth.getTime(), lastDayOfLastMonth.getTime()).then(async (doc) => {
+            await getUserTimes(user.uid, firstDayOfLastMonth, lastDayOfLastMonth).then(async (doc) => {
 
                 if (doc.error) {
                     lastMonthTime = "0.00"
@@ -157,7 +157,7 @@ async function setUsers() {
                         return a.time - b.time;
                     });
 
-                    for (let day = new Date(firstDayOfLastMonth.getTime()); day <= lastDayOfLastMonth.getTime(); day.setDate(day.getDate() + 1)) {
+                    for (let day = new Date(firstDayOfLastMonth); day <= lastDayOfLastMonth; day.setDate(day.getDate() + 1)) {
                         const result = processActions(doc.actions, day);
                         lastMonthTime += result.totalTimeInMilliseconds;
                     }
