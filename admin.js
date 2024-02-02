@@ -122,17 +122,18 @@ async function setUsers() {
 
             const firstDayOfCurrentMonth = await new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
             const lastDayOfCurrentMonth =await new Date(currentDate.getFullYear(), currentDate.getMonth() +1, 0);
+            console.log(firstDayOfCurrentMonth, lastDayOfCurrentMonth)
 
             const lastDayOfLastMonth = await new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
             const firstDayOfLastMonth = await new Date(currentDate.getFullYear(), currentDate.getMonth() -1, 1);
-
+            console.log(firstDayOfLastMonth, lastDayOfLastMonth)
             let currentMonthTime = 0;
             let lastMonthTime = 0;
 
             await getUserTimes(user.uid, firstDayOfCurrentMonth.getTime(), lastDayOfCurrentMonth.getTime()).then(async (doc) => {
 
                 if (doc.error) {
-                    currentMonthTime = "00.00"
+                    currentMonthTime = "0.00"
                 } else {
 
                     doc.actions.sort(function (a, b) {
@@ -150,7 +151,7 @@ async function setUsers() {
             await getUserTimes(user.uid, firstDayOfLastMonth.getTime(), lastDayOfLastMonth.getTime()).then(async (doc) => {
 
                 if (doc.error) {
-                    lastMonthTime = "00.00"
+                    lastMonthTime = "0.00"
                 } else {
 
                     doc.actions.sort(function (a, b) {
