@@ -115,7 +115,6 @@ async function setUsers() {
         let activeUsers = data.users.filter(user => user.active === true);
 
         activeUsers.forEach((user) => {
-            console.log(user)
             let docElement = document.createElement("div");
             docElement.classList.add("user-block");
 
@@ -138,14 +137,17 @@ async function setUsers() {
 
         activeUsers.forEach(async (user)  => {
             if(user.status === "mail" || user.status === "telephone"){
+                console.log("green")
                 await document.addEventListener('DOMContentLoaded', () => {
                     document.querySelector('.color-dot').style.backgroundColor = 'green';
                 });
             } else if (user.status === "pause") {
+                console.log("orange")
                 await document.addEventListener('DOMContentLoaded', () => {
                     document.querySelector('.color-dot').style.backgroundColor = 'orange';
                 });
             } else {
+                console.log("red")
                 await document.addEventListener('DOMContentLoaded', () => {
                     document.querySelector('.color-dot').style.backgroundColor = 'red';
                 });
