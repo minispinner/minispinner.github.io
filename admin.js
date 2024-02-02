@@ -166,16 +166,14 @@ async function setUsers() {
                 }
             });
 
-            await currentMonthTime = currentMonthTime / (1000 * 60 * 60);
-            await lastMonthTime = lastMonthTime / (1000 * 60 * 60)
-            await currentMonthTime = currentMonthTime.toFixed(2)
-            await lastMonthTime = lastMonthTime.toFixed(2)
+            let currentTime = currentMonthTime / (1000 * 60 * 60);
+            let lastTime = lastMonthTime / (1000 * 60 * 60)
 
             docElement.innerHTML = `
                 <img src="pics/person.png" alt="person.png" width="180" height="180">
                 <h3>${user.first_name} ${user.last_name} <span class="color-dot"></span></h3>
-                <p>aktueller Monat: ${currentMonthTime} Stunden</p>
-                <p>letzer Monat: ${lastMonthTime} Stunden</p>
+                <p>aktueller Monat: ${currentTime.toFixed(2)} Stunden</p>
+                <p>letzer Monat: ${lastTime.toFixed(2)} Stunden</p>
                 <div class="button-container">
                     <button type="button" onclick="editPage('${user.uid}')">Bearbeiten</button>
                     <button type="button" onclick="statsPage('${user.uid}')">Statistik</button>
