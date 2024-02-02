@@ -126,7 +126,6 @@ async function setUsers() {
             const lastDayOfLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
             const firstDayOfLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() -1, 1);
 
-            console.log(firstDayOfCurrentMonth, lastDayOfCurrentMonth, firstDayOfLastMonth, lastDayOfLastMonth)
             let currentMonthTime;
             let lastMonthTime;
 
@@ -168,7 +167,7 @@ async function setUsers() {
                 <img src="pics/person.png" alt="person.png" width="180" height="180">
                 <h3>${user.first_name} ${user.last_name} <span class="color-dot"></span></h3>
                 <p>aktueller Monat: ${currentMonthTime}</p>
-                <p>letzer Monat:</p>
+                <p>letzer Monat: ${lastMonthTime}</p>
                 <div class="button-container">
                     <button type="button" onclick="editPage('${user.uid}')">Bearbeiten</button>
                     <button type="button" onclick="statsPage('${user.uid}')">Statistik</button>
@@ -518,7 +517,9 @@ async function getUserTimes(uid, startDate, endDate) {
                     end: endDate,
                 }),
             });
-            return await response.json();
+            let answer = await response.json()
+            console.log(answer)
+            return answer;
         } catch (error) {
             // Fehlerbehandlung
             console.error("Fehler in getActionsByUidBetweenTimes: ", error);
