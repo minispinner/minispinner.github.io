@@ -141,7 +141,7 @@ async function setUsers() {
 
                     for (let day = new Date(firstDayOfCurrentMonth.getTime()); day <= lastDayOfCurrentMonth.getTime(); day.setDate(day.getDate() + 1)) {
                         const result = processActions(doc.actions, day);
-                        currentMonthTime += result.decimal;
+                        currentMonthTime += result.total;
                     }
                 }
             });
@@ -158,13 +158,16 @@ async function setUsers() {
 
                     for (let day = new Date(firstDayOfLastMonth.getTime()); day <= lastDayOfLastMonth.getTime(); day.setDate(day.getDate() + 1)) {
                         const result = processActions(doc.actions, day);
-                        lastMonthTime += result.decimal;
+                        lastMonthTime += result.total;
 
 
 
                     }
                 }
             });
+
+            currentMonthTime = currentMonthTime / (1000 * 60 * 60).toFixed(2);
+            lastMonthTime = lastMonthTime / (1000 * 60 * 60).toFixed(2);
 
             docElement.innerHTML = `
                 <img src="pics/person.png" alt="person.png" width="180" height="180">
@@ -468,7 +471,7 @@ async function setUserData() {
 function processActions(actions, date) {
     let data = [];
     let label = [];
-    let decimal = [];
+    let total = [];
     let activeAction = false;
     let totalTimeInMilliseconds = 0;
     let startTime = date.setHours(0, 0, 0, 0);
@@ -496,15 +499,14 @@ function processActions(actions, date) {
         let diff = new Date(totalTimeInMilliseconds);
         const hours = (diff.getHours() - 1).toString().padStart(2, '0');
         const minutes = diff.getMinutes().toString().padStart(2, '0');
-        const decimalTime = totalTimeInMilliseconds / (1000 * 60 * 60);
         label.push("---------------")
         label.push("Insg. : " + hours + ":" + minutes)
         data.push(hours + "." + minutes);
-        decimal.push(decimalTime.toFixed(2))
+        total.push(totalTimeInMilliseconds)
 
     }
 
-    return {data, label, decimal};
+    return {data, label, total};
 }
 
 
