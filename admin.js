@@ -122,15 +122,15 @@ async function setUsers() {
             const currentDate = new Date();
 
                 // Ersten Tag des aktuellen Monats festlegen
-            const firstDayOfLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            const firstDayOfCurrentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            const lastDayOfCurrentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
 
             // Letzten Tag des aktuellen Monats festlegen
             const lastDayOfLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+            const firstDayOfLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() -1, 1);
 
-            console.log(firstDayOfLastMonth, lastDayOfLastMonth)
+            console.log(firstDayOfCurrentMonth, lastDayOfCurrentMonth, firstDayOfLastMonth, lastDayOfLastMonth)
 
-            console.log("Erster Tag des letzten Monats (in Millisekunden seit 1970):", firstDayTimestamp);
-            console.log("Letzter Tag des letzten Monats (in Millisekunden seit 1970):", lastDayTimestamp);
 
 
             docElement.innerHTML = `
