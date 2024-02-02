@@ -131,7 +131,9 @@ async function setUsers() {
 
             await getUserTimes(user.uid, firstDayOfCurrentMonth.getTime(), lastDayOfCurrentMonth.getTime()).then(async (doc) => {
 
-                if (!doc.error) {
+                if (doc.error) {
+                    currentMonthTime = "00.00"
+                } else {
 
                     doc.actions.sort(function (a, b) {
                         return a.time - b.time;
@@ -141,14 +143,14 @@ async function setUsers() {
                         const result = processActions(doc.actions, day);
                         currentMonthTime = result.data;
                     }
-                } else {
-                    currentMonthTime = "00.00"
                 }
             });
 
             await getUserTimes(user.uid, firstDayOfLastMonth.getTime(), lastDayOfLastMonth.getTime()).then(async (doc) => {
 
-                if (!doc.error) {
+                if (doc.error) {
+                    lastMonthTime = "00.00"
+                } else {
 
                     doc.actions.sort(function (a, b) {
                         return a.time - b.time;
@@ -158,8 +160,6 @@ async function setUsers() {
                         const result = processActions(doc.actions, day);
                         lastMonthTime = result.data;
                     }
-                } else {
-                    lastMonthTime = "00.00"
                 }
             });
 
