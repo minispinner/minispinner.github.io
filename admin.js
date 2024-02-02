@@ -126,8 +126,8 @@ async function setUsers() {
             const lastDayOfLastMonth = await new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
             const firstDayOfLastMonth = await new Date(currentDate.getFullYear(), currentDate.getMonth() -1, 1);
 
-            let currentMonthTime;
-            let lastMonthTime;
+            let currentMonthTime = 0;
+            let lastMonthTime = 0;
 
             await getUserTimes(user.uid, firstDayOfCurrentMonth.getTime(), lastDayOfCurrentMonth.getTime()).then(async (doc) => {
 
@@ -161,6 +161,7 @@ async function setUsers() {
                         const result = processActions(doc.actions, day);
                         console.log(lastMonthTime)
                         lastMonthTime += result.total;
+                        console.log(result.total)
                     }
                 }
             });
