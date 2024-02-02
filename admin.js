@@ -141,7 +141,7 @@ async function setUsers() {
 
                     for (let day = new Date(firstDayOfCurrentMonth.getTime()); day <= lastDayOfCurrentMonth.getTime(); day.setDate(day.getDate() + 1)) {
                         const result = processActions(doc.actions, day);
-                        currentMonthTime = result.data;
+                        currentMonthTime = result.decimal;
                     }
                 }
             });
@@ -158,7 +158,7 @@ async function setUsers() {
 
                     for (let day = new Date(firstDayOfLastMonth.getTime()); day <= lastDayOfLastMonth.getTime(); day.setDate(day.getDate() + 1)) {
                         const result = processActions(doc.actions, day);
-                        lastMonthTime = result.data;
+                        lastMonthTime = result.decimal;
                     }
                 }
             });
@@ -465,6 +465,7 @@ async function setUserData() {
 function processActions(actions, date) {
     let data = [];
     let label = [];
+    let decimal = [];
     let activeAction = false;
     let totalTimeInMilliseconds = 0;
     let startTime = date.setHours(0, 0, 0, 0);
@@ -492,12 +493,15 @@ function processActions(actions, date) {
         let diff = new Date(totalTimeInMilliseconds);
         const hours = (diff.getHours() - 1).toString().padStart(2, '0');
         const minutes = diff.getMinutes().toString().padStart(2, '0');
+        const decimalTime = diff.getTime()
         label.push("---------------")
         label.push("Insg. : " + hours + ":" + minutes)
         data.push(hours + "." + minutes);
+        decimal.push(decimalTime)
+
     }
 
-    return {data, label};
+    return {data, label, decimal};
 }
 
 
@@ -517,9 +521,7 @@ async function getUserTimes(uid, startDate, endDate) {
                     end: endDate,
                 }),
             });
-            let answer = await response.json()
-            console.log(answer)
-            return answer;
+            return await response.json();
         } catch (error) {
             // Fehlerbehandlung
             console.error("Fehler in getActionsByUidBetweenTimes: ", error);
