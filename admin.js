@@ -137,20 +137,11 @@ async function setUsers() {
 
         activeUsers.forEach(async (user)  => {
             if(user.status === "mail" || user.status === "telephone"){
-                console.log("green")
-                await document.addEventListener('DOMContentLoaded', () => {
-                    document.querySelector('.color-dot').style.backgroundColor = 'green';
-                });
+                document.querySelector('.color-dot').style.backgroundColor = 'green';
             } else if (user.status === "pause") {
-                console.log("orange")
-                await document.addEventListener('DOMContentLoaded', () => {
-                    document.querySelector('.color-dot').style.backgroundColor = 'orange';
-                });
+                document.querySelector('.color-dot').style.backgroundColor = 'orange';
             } else {
-                console.log("red")
-                await document.addEventListener('DOMContentLoaded', () => {
-                    document.querySelector('.color-dot').style.backgroundColor = 'red';
-                });
+                document.querySelector('.color-dot').style.backgroundColor = 'red';
             }
         });
     });
