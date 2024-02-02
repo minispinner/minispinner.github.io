@@ -118,6 +118,21 @@ async function setUsers() {
             let docElement = document.createElement("div");
             docElement.classList.add("user-block");
 
+            // Aktuelles Datum erstellen
+            const currentDate = new Date();
+
+                // Ersten Tag des aktuellen Monats festlegen
+            const firstDayOfLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+
+            // Letzten Tag des aktuellen Monats festlegen
+            const lastDayOfLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+
+            console.log(firstDayOfLastMonth, lastDayOfLastMonth)
+
+            console.log("Erster Tag des letzten Monats (in Millisekunden seit 1970):", firstDayTimestamp);
+            console.log("Letzter Tag des letzten Monats (in Millisekunden seit 1970):", lastDayTimestamp);
+
+
             docElement.innerHTML = `
                 <img src="pics/person.png" alt="person.png" width="180" height="180">
                 <h3>${user.first_name} ${user.last_name} <span class="color-dot"></span></h3>
@@ -132,7 +147,6 @@ async function setUsers() {
 
             let colorDot = docElement.querySelector('.color-dot');
 
-            // Farbe basierend auf dem Status setzen
             if (user.status === 'mail' || user.status === 'telephone') {
                 colorDot.style.backgroundColor = 'green';
             } else if (user.status === 'pause') {
