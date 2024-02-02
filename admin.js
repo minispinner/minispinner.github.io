@@ -131,23 +131,26 @@ async function setUsers() {
             </div>
             `;
             container.appendChild(docElement);
+
+        });
+        document.body.appendChild(container);
+        document.getElementById('ladeAnimation').style.display = 'none';
+
+        activeUsers.forEach((user) => {
             if(user.status === "mail" || user.status === "telephone"){
-                document.addEventListener('DOMContentLoaded', (event) => {
+                document.addEventListener('DOMContentLoaded', () => {
                     document.querySelector('.color-dot').style.backgroundColor = 'green';
                 });
             } else if (user.status === "pause") {
-                document.addEventListener('DOMContentLoaded', (event) => {
+                document.addEventListener('DOMContentLoaded', () => {
                     document.querySelector('.color-dot').style.backgroundColor = 'orange';
                 });
             } else {
-                document.addEventListener('DOMContentLoaded', (event) => {
+                document.addEventListener('DOMContentLoaded', () => {
                     document.querySelector('.color-dot').style.backgroundColor = 'red';
                 });
             }
         });
-        document.body.appendChild(container);
-
-        document.getElementById('ladeAnimation').style.display = 'none';
     });
 }
 
