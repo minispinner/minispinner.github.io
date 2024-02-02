@@ -117,10 +117,17 @@ async function setUsers() {
         activeUsers.forEach((user) => {
             let docElement = document.createElement("div");
             docElement.classList.add("user-block");
+            if(user.status === "mail" || user.status === "telephone"){
+                document.querySelector('.color-dot').style.backgroundColor = 'green';
+            } else if (user.status === "pause") {
+                document.querySelector('.color-dot').style.backgroundColor = 'orange';
+            } else {
+                document.querySelector('.color-dot').style.backgroundColor = 'red';
+            }
 
             docElement.innerHTML = `
             <img src="pics/person.png" alt="person.png" width="180" height="180">
-            <h3>${user.first_name} ${user.last_name}</h3>
+            <h3>${user.first_name} ${user.last_name} <span class="color-dot"></span></h3>
             <p>Status: ${user.status}</p>
             <p>aktueller Monat:</p>
             <p>letzer Monat:</p>

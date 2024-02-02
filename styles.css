@@ -228,3 +228,12 @@ h1 {
 p {
     margin: 0;
 }
+
+.color-dot {
+    height: 10px;
+    width: 10px;
+    background-color: red; /* Setzen Sie hier Ihre gewünschte Farbe */
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px; /* Optional: Abstand zum Nachnamen */
+}
