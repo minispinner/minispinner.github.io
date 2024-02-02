@@ -142,7 +142,6 @@ async function setUsers() {
 
                     for (let day = new Date(firstDayOfCurrentMonth.getTime()); day <= lastDayOfCurrentMonth.getTime(); day.setDate(day.getDate() + 1)) {
                         const result = processActions(doc.actions, day);
-                        console.log(currentMonthTime)
                         currentMonthTime += result.totalTimeInMilliseconds;
                     }
                 }
@@ -162,7 +161,6 @@ async function setUsers() {
                         const result = processActions(doc.actions, day);
                         console.log(lastMonthTime)
                         lastMonthTime += result.totalTimeInMilliseconds;
-                        console.log(result.totalTimeInMilliseconds)
                     }
                 }
             });
