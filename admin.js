@@ -174,7 +174,7 @@ async function setUsers() {
                 <img src="pics/person.png" alt="person.png" width="180" height="180">
                 <h3>${user.first_name} ${user.last_name} <span class="color-dot"></span></h3>
                 <p>aktueller Monat: ${currentTime.toFixed(2)} Stunden</p>
-                <p>letzer Monat: ${lastTime.toFixed(2)} Stunden</p>
+                <p>letzter Monat: ${lastTime.toFixed(2)} Stunden</p>
                 <div class="button-container">
                     <button type="button" onclick="editPage('${user.uid}')">Bearbeiten</button>
                     <button type="button" onclick="statsPage('${user.uid}')">Statistik</button>
