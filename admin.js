@@ -118,25 +118,56 @@ async function setUsers() {
             let docElement = document.createElement("div");
             docElement.classList.add("user-block");
 
-            // Aktuelles Datum erstellen
             const currentDate = new Date();
 
-                // Ersten Tag des aktuellen Monats festlegen
             const firstDayOfCurrentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
             const lastDayOfCurrentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
 
-            // Letzten Tag des aktuellen Monats festlegen
             const lastDayOfLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
             const firstDayOfLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() -1, 1);
 
             console.log(firstDayOfCurrentMonth, lastDayOfCurrentMonth, firstDayOfLastMonth, lastDayOfLastMonth)
+            let currentMonthTime;
+            let lastMonthTime;
 
+            getUserTimes(user.uid, firstDayOfCurrentMonth.getTime(), lastDayOfCurrentMonth.getTime()).then(async (doc) => {
 
+                if (!doc.error) {
+
+                    doc.actions.sort(function (a, b) {
+                        return a.time - b.time;
+                    });
+
+                    for (let day = new Date(firstDayOfCurrentMonth.getTime()); day <= lastDayOfCurrentMonth.getTime(); day.setDate(day.getDate() + 1)) {
+                        const result = processActions(doc.actions, day);
+                        currentMonthTime = result.data;
+                    }
+                } else {
+                    currentMonthTime = "00.00"
+                }
+            });
+
+            getUserTimes(user.uid, firstDayOfLastMonth.getTime(), lastDayOfLastMonth.getTime()).then(async (doc) => {
+
+                if (!doc.error) {
+
+                    doc.actions.sort(function (a, b) {
+                        return a.time - b.time;
+                    });
+
+                    for (let day = new Date(firstDayOfLastMonth.getTime()); day <= lastDayOfLastMonth.getTime(); day.setDate(day.getDate() + 1)) {
+                        const result = processActions(doc.actions, day);
+                        lastMonthTime = result.data;
+                    }
+                } else {
+                    lastMonthTime = "00.00"
+                }
+            });
 
             docElement.innerHTML = `
                 <img src="pics/person.png" alt="person.png" width="180" height="180">
                 <h3>${user.first_name} ${user.last_name} <span class="color-dot"></span></h3>
-                <p>aktueller Monat:</p>
+                <p>aktueller Monat: ${currentMonthTime}</p>
                 <p>letzer Monat:</p>
                 <div class="button-container">
                     <button type="button" onclick="editPage('${user.uid}')">Bearbeiten</button>
