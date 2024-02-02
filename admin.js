@@ -118,13 +118,6 @@ async function setUsers() {
             console.log(user)
             let docElement = document.createElement("div");
             docElement.classList.add("user-block");
-            if(user.status === "mail" || user.status === "telephone"){
-                document.querySelector('.color-dot').style.backgroundColor = 'green';
-            } else if (user.status === "pause") {
-                document.querySelector('.color-dot').style.backgroundColor = 'orange';
-            } else {
-                document.querySelector('.color-dot').style.backgroundColor = 'red';
-            }
 
             docElement.innerHTML = `
             <img src="pics/person.png" alt="person.png" width="180" height="180">
@@ -138,8 +131,16 @@ async function setUsers() {
             </div>
             `;
             container.appendChild(docElement);
+            if(user.status === "mail" || user.status === "telephone"){
+                document.querySelector('.color-dot').style.backgroundColor = 'green';
+            } else if (user.status === "pause") {
+                document.querySelector('.color-dot').style.backgroundColor = 'orange';
+            } else {
+                document.querySelector('.color-dot').style.backgroundColor = 'red';
+            }
         });
         document.body.appendChild(container);
+
         document.getElementById('ladeAnimation').style.display = 'none';
     });
 }
