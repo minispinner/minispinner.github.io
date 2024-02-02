@@ -128,7 +128,6 @@ async function setUsers() {
             docElement.innerHTML = `
             <img src="pics/person.png" alt="person.png" width="180" height="180">
             <h3>${user.first_name} ${user.last_name} <span class="color-dot"></span></h3>
-            <p>Status: ${user.status}</p>
             <p>aktueller Monat:</p>
             <p>letzer Monat:</p>
             <div class="button-container">
@@ -301,7 +300,7 @@ async function setData() {
                 let minutes = 0;
 
                 if (doc.error) {
-                    await getUser(uid).then(async (user) => {
+                    await getUser(uid).then(async () => {
                         data.push(hours + "." + minutes);
                         label.push("no data")
                     });
@@ -374,7 +373,7 @@ async function setUserData() {
         let minutes = 0;
 
         if (doc.error) {
-            await getUser(uid).then(async (user) => {
+            await getUser(uid).then(async () => {
                 data.push(hours + "." + minutes);
                 label.push("no data")
             });
@@ -422,7 +421,7 @@ function processActions(actions, date) {
     let startTime = date.setHours(0, 0, 0, 0);
     let endTime = date.setHours(23, 59, 59, 999);
 
-    actions.forEach((action, index) => {
+    actions.forEach((action) => {
         if (action.time >= startTime && action.time <= endTime) {
             if (action.action === 'startShift') {
                 activeAction = action;
@@ -430,7 +429,6 @@ function processActions(actions, date) {
                 const startDate = new Date(activeAction.time);
                 const endDate = new Date(action.time);
                 totalTimeInMilliseconds += action.time - activeAction.time;
-                let difference = new Date(totalTimeInMilliseconds);
                 label.push(`${startDate.getHours()}:${startDate.getMinutes()} - ${endDate.getHours()}:${endDate.getMinutes()}`);
                 activeAction = false;
             }
