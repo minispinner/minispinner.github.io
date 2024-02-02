@@ -159,6 +159,9 @@ async function setUsers() {
                     for (let day = new Date(firstDayOfLastMonth.getTime()); day <= lastDayOfLastMonth.getTime(); day.setDate(day.getDate() + 1)) {
                         const result = processActions(doc.actions, day);
                         lastMonthTime = result.decimal;
+
+
+
                     }
                 }
             });
@@ -493,7 +496,7 @@ function processActions(actions, date) {
         let diff = new Date(totalTimeInMilliseconds);
         const hours = (diff.getHours() - 1).toString().padStart(2, '0');
         const minutes = diff.getMinutes().toString().padStart(2, '0');
-        const decimalTime = diff.getTime()
+        const decimalTime = diff.getTime()  / (1000 * 60) / 60
         label.push("---------------")
         label.push("Insg. : " + hours + ":" + minutes)
         data.push(hours + "." + minutes);
