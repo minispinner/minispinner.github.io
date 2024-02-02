@@ -122,11 +122,10 @@ async function setUsers() {
 
             const firstDayOfCurrentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).setHours(0, 0, 0, 0)
             const lastDayOfCurrentMonth =new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).setHours(23, 59, 59, 999);
-            console.log(firstDayOfCurrentMonth, lastDayOfCurrentMonth)
 
             const lastDayOfLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).setHours(23, 59, 59, 999);
             const firstDayOfLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() -1, 1).setHours(0,0, 0, 0)
-            console.log(firstDayOfLastMonth, lastDayOfLastMonth)
+
             let currentMonthTime = 0;
             let lastMonthTime = 0;
 
