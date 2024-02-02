@@ -120,12 +120,12 @@ async function setUsers() {
 
             const currentDate = new Date();
 
-            const firstDayOfCurrentMonth = await new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-            const lastDayOfCurrentMonth =await new Date(currentDate.getFullYear(), currentDate.getMonth() +1, 0);
+            const firstDayOfCurrentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).setHours(0, 0, 0, 0)
+            const lastDayOfCurrentMonth =new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).setHours(23, 59, 59, 999);
             console.log(firstDayOfCurrentMonth, lastDayOfCurrentMonth)
 
-            const lastDayOfLastMonth = await new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
-            const firstDayOfLastMonth = await new Date(currentDate.getFullYear(), currentDate.getMonth() -1, 1);
+            const lastDayOfLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).setHours(23, 59, 59, 999);
+            const firstDayOfLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() -1, 1).setHours(0,0, 0, 0)
             console.log(firstDayOfLastMonth, lastDayOfLastMonth)
             let currentMonthTime = 0;
             let lastMonthTime = 0;
@@ -159,7 +159,6 @@ async function setUsers() {
 
                     for (let day = new Date(firstDayOfLastMonth.getTime()); day <= lastDayOfLastMonth.getTime(); day.setDate(day.getDate() + 1)) {
                         const result = processActions(doc.actions, day);
-                        console.log(lastMonthTime)
                         lastMonthTime += result.totalTimeInMilliseconds;
                     }
                 }
