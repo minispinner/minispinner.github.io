@@ -142,7 +142,7 @@ async function setUsers() {
                     for (let day = new Date(firstDayOfCurrentMonth.getTime()); day <= lastDayOfCurrentMonth.getTime(); day.setDate(day.getDate() + 1)) {
                         const result = processActions(doc.actions, day);
                         console.log(currentMonthTime)
-                        currentMonthTime += await result.diff;
+                        currentMonthTime += result.totalTimeInMilliseconds;
                     }
                 }
             });
@@ -160,8 +160,8 @@ async function setUsers() {
                     for (let day = new Date(firstDayOfLastMonth.getTime()); day <= lastDayOfLastMonth.getTime(); day.setDate(day.getDate() + 1)) {
                         const result = processActions(doc.actions, day);
                         console.log(lastMonthTime)
-                        lastMonthTime += await result.diff;
-                        console.log(result.diff)
+                        lastMonthTime += result.totalTimeInMilliseconds;
+                        console.log(result.totalTimeInMilliseconds)
                     }
                 }
             });
@@ -475,7 +475,6 @@ function processActions(actions, date) {
     let totalTimeInMilliseconds = 0;
     let startTime = date.setHours(0, 0, 0, 0);
     let endTime = date.setHours(23, 59, 59, 999);
-
     actions.forEach((action) => {
         if (action.time >= startTime && action.time <= endTime) {
             if (action.action === 'startShift') {
@@ -489,24 +488,19 @@ function processActions(actions, date) {
             }
         }
     });
-
-    let diff;
     if (totalTimeInMilliseconds === 0 && !activeAction) {
         // No action in the time range, push "0.0" to data
         data.push("0.0");
         label.push("no data")
     } else {
-        diff = totalTimeInMilliseconds
+        let diff = new Date(totalTimeInMilliseconds);
         const hours = (diff.getHours() - 1).toString().padStart(2, '0');
         const minutes = diff.getMinutes().toString().padStart(2, '0');
         label.push("---------------")
         label.push("Insg. : " + hours + ":" + minutes)
         data.push(hours + "." + minutes);
-
-
     }
-
-    return {data, label, diff};
+    return {data, label, totalTimeInMilliseconds};
 }
 
 
