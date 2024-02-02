@@ -470,7 +470,7 @@ async function setUserData() {
 function processActions(actions, date) {
     let data = [];
     let label = [];
-    let total = [];
+    let total;
     let activeAction = false;
     let totalTimeInMilliseconds = 0;
     let startTime = date.setHours(0, 0, 0, 0);
@@ -501,7 +501,7 @@ function processActions(actions, date) {
         label.push("---------------")
         label.push("Insg. : " + hours + ":" + minutes)
         data.push(hours + "." + minutes);
-        total.push(totalTimeInMilliseconds)
+        total = totalTimeInMilliseconds
 
     }
 
