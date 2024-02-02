@@ -132,11 +132,17 @@ async function setUsers() {
             `;
             container.appendChild(docElement);
             if(user.status === "mail" || user.status === "telephone"){
-                document.querySelector('.color-dot').style.backgroundColor = 'green';
+                document.addEventListener('DOMContentLoaded', (event) => {
+                    document.querySelector('.color-dot').style.backgroundColor = 'green';
+                });
             } else if (user.status === "pause") {
-                document.querySelector('.color-dot').style.backgroundColor = 'orange';
+                document.addEventListener('DOMContentLoaded', (event) => {
+                    document.querySelector('.color-dot').style.backgroundColor = 'orange';
+                });
             } else {
-                document.querySelector('.color-dot').style.backgroundColor = 'red';
+                document.addEventListener('DOMContentLoaded', (event) => {
+                    document.querySelector('.color-dot').style.backgroundColor = 'red';
+                });
             }
         });
         document.body.appendChild(container);
