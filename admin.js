@@ -169,8 +169,8 @@ async function setUsers() {
             docElement.innerHTML = `
                 <img src="pics/person.png" alt="person.png" width="180" height="180">
                 <h3>${user.first_name} ${user.last_name} <span class="color-dot"></span></h3>
-                <p>aktueller Monat: ${currentMonthTime}</p>
-                <p>letzer Monat: ${lastMonthTime}</p>
+                <p>aktueller Monat: ${currentMonthTime} Stunden</p>
+                <p>letzer Monat: ${lastMonthTime} Stunden</p>
                 <div class="button-container">
                     <button type="button" onclick="editPage('${user.uid}')">Bearbeiten</button>
                     <button type="button" onclick="statsPage('${user.uid}')">Statistik</button>
@@ -496,11 +496,11 @@ function processActions(actions, date) {
         let diff = new Date(totalTimeInMilliseconds);
         const hours = (diff.getHours() - 1).toString().padStart(2, '0');
         const minutes = diff.getMinutes().toString().padStart(2, '0');
-        const decimalTime = diff.getTime()  / (1000 * 60) / 60
+        const decimalTime = totalTimeInMilliseconds / (1000 * 60 * 60);
         label.push("---------------")
         label.push("Insg. : " + hours + ":" + minutes)
         data.push(hours + "." + minutes);
-        decimal.push(decimalTime)
+        decimal.push(decimalTime.toFixed(2))
 
     }
 
