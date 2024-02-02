@@ -136,17 +136,17 @@ async function setUsers() {
         document.body.appendChild(container);
         document.getElementById('ladeAnimation').style.display = 'none';
 
-        activeUsers.forEach((user) => {
+        activeUsers.forEach(async (user)  => {
             if(user.status === "mail" || user.status === "telephone"){
-                document.addEventListener('DOMContentLoaded', () => {
+                await document.addEventListener('DOMContentLoaded', () => {
                     document.querySelector('.color-dot').style.backgroundColor = 'green';
                 });
             } else if (user.status === "pause") {
-                document.addEventListener('DOMContentLoaded', () => {
+                await document.addEventListener('DOMContentLoaded', () => {
                     document.querySelector('.color-dot').style.backgroundColor = 'orange';
                 });
             } else {
-                document.addEventListener('DOMContentLoaded', () => {
+                await document.addEventListener('DOMContentLoaded', () => {
                     document.querySelector('.color-dot').style.backgroundColor = 'red';
                 });
             }
