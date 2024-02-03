@@ -346,7 +346,7 @@ async function setData() {
     } else {
         labels = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
 
-        await getMondayToday.then((data) => {
+        await getMondayToday().then((data) => {
             date = data.monday;
             date2 = data.today;
         });
@@ -380,7 +380,7 @@ async function setUserData() {
     const uid = new URLSearchParams(window.location.search).get('id');
 
 
-    await getMondayToday.then((data) => {
+    await getMondayToday().then((data) => {
         date = data.monday;
         date2 = data.today;
     });
