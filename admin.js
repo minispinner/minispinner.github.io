@@ -361,8 +361,8 @@ async function setData() {
 
         for (const uid of values) {
             await getUserView(uid, date, date2).then((data) => {
-                datasets = data.datasets;
-                hoverText = data.text;
+                datasets.push(data.datasets)
+                hoverText.push(data.text)
             });
         }
         updateDataset(datasets)
