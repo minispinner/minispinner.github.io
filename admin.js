@@ -1,15 +1,15 @@
-function getMondayToday() {
-    const today = new Date();
-    today.setHours(23, 59, 59, 999)
-    let date2 = today.getTime();
+async function getMondayToday() {
+    const date2 = new Date();
+    date2.setHours(23, 59, 59, 999)
+    let today = date2.getTime();
     const dayOfWeek = today.getDay();
     const timeToMonday = (dayOfWeek + 6) % 7;
-    let monday = new Date()
-    monday.setDate(today.getDate() - timeToMonday);
-    monday.setHours(0, 0, 0, 0)
-    let date = monday.getTime();
+    let date = new Date()
+    date.setDate(today.getDate() - timeToMonday);
+    date.setHours(0, 0, 0, 0)
+    let monday = date.getTime();
 
-    return {monday: date, today: date2}
+    return {monday, today}
 }
 
 async function getUsers() {
@@ -345,6 +345,7 @@ async function setData() {
         await setLabel(dateValue1, dateValue2)
     } else {
         labels = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
+
 
         await getMondayToday().then((data) => {
             date = data.monday;
