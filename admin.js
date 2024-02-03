@@ -523,7 +523,7 @@ async function getUserTimes(uid, startDate, endDate) {
             });
 
             if (response.status === 404) {
-                return await response.json();
+                console.log(response.status)
             } else {
                 return await response.json();
             }
