@@ -2,10 +2,10 @@ async function getMondayToday() {
     const date2 = new Date();
     date2.setHours(23, 59, 59, 999)
     let today = date2.getTime();
-    const dayOfWeek = today.getDay();
+    const dayOfWeek = date2.getDay();
     const timeToMonday = (dayOfWeek + 6) % 7;
     let date = new Date()
-    date.setDate(today.getDate() - timeToMonday);
+    date.setDate(date2.getDate() - timeToMonday);
     date.setHours(0, 0, 0, 0)
     let monday = date.getTime();
 
