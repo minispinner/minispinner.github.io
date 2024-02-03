@@ -522,11 +522,7 @@ async function getUserTimes(uid, startDate, endDate) {
                 }),
             });
 
-            if (response.status === 404) {
-                console.log(response.status)
-            } else {
-                return await response.json();
-            }
+            return await response.json();
 
         } catch (error) {
             // Fehlerbehandlung
