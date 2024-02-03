@@ -305,8 +305,8 @@ function clearDropdown() {
     $('.ui.dropdown')
         .dropdown('restore defaults')
 
-    document.getElementById('daterange1').value = "";
-    document.getElementById('daterange2').value = "";
+    document.getElementById('date-range1').value = "";
+    document.getElementById('date-range2').value = "";
     updateDataset([]);
     updateLabel([]);
 }
@@ -317,8 +317,8 @@ async function setData() {
     hoverText = [];
 
     const userSelectElement = await document.getElementById('userSelect');
-    const dateValue1 = await document.getElementById('daterange1').value;
-    const dateValue2 = await document.getElementById('daterange2').value;
+    const dateValue1 = await document.getElementById('date-range1').value;
+    const dateValue2 = await document.getElementById('date-range2').value;
 
     let labels;
     let date;
@@ -332,15 +332,10 @@ async function setData() {
     } else {
         labels = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
 
-        const today = new Date();
-        today.setHours(23, 59, 59, 999)
-        date2 = today.getTime();
-        const dayOfWeek = today.getDay();
-        const timeToMonday = (dayOfWeek + 6) % 7;
-        let monday = new Date()
-        monday.setDate(today.getDate() - timeToMonday);
-        monday.setHours(0, 0, 0, 0)
-        date = monday.getTime();
+        await getMondayToday.then((data) => {
+            date = data.monday;
+            date2 = data.today;
+        });
 
         await updateLabel(labels)
     }
@@ -348,51 +343,11 @@ async function setData() {
     if(userSelectElement.selectedOptions.length !== 0){
         const selectedOptions = userSelectElement.selectedOptions;
         const values = Array.from(selectedOptions).map(option => option.value);
+
         for (const uid of values) {
-            await getUserTimes(uid, date, date2).then(async (doc) => {
-                let data = [];
-                let label = [];
-                let hours = 0;
-                let minutes = 0;
-
-                if (doc.error) {
-                    await getUser(uid).then(async () => {
-                        data.push(hours + "." + minutes);
-                        label.push("no data")
-                    });
-                } else {
-
-                    doc.actions.sort(function (a, b) {
-                        return a.time - b.time;
-                    });
-
-                    let endDay = new Date(date2).setHours(23, 59, 59, 999);
-                    let startDay = new Date(date).setHours(0, 0, 0, 0);
-
-
-                    for (let day = new Date(startDay); day <= endDay; day.setDate(day.getDate() + 1)) {
-                        const result = processActions(doc.actions, day);
-                        data.push(result.data);
-                        label.push(result.label);
-                    }
-
-                    await getUser(uid).then(async (user) => {
-
-                        datasets.push(
-                            {
-                                label: user.status.first_name + " " + user.status.last_name,
-                                data: data,
-                                borderWidth: 1
-                            }
-                        )
-
-                        hoverText.push(
-                            {
-                                label: label
-                            }
-                        )
-                    });
-                }
+            await getUserView(uid, date, date2).then((data) => {
+                datasets = data.datasets;
+                hoverText = data.text;
             });
         }
         updateDataset(datasets)
@@ -410,18 +365,25 @@ async function setUserData() {
     let labels = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
     const uid = new URLSearchParams(window.location.search).get('id');
 
-    const today = new Date();
-    today.setHours(23, 59, 59, 999)
-    date2 = today.getTime();
-    const dayOfWeek = today.getDay();
-    const timeToMonday = (dayOfWeek + 6) % 7;
-    let monday = new Date()
-    monday.setDate(today.getDate() - timeToMonday);
-    monday.setHours(0, 0, 0, 0)
-    date = monday.getTime();
+
+    await getMondayToday.then((data) => {
+        date = data.monday;
+        date2 = data.today;
+    });
 
     await updateLabel(labels)
 
+    await getUserView(uid, date, date2).then((data) => {
+        datasets = data.datasets;
+        hoverText = data.text;
+    });
+
+    updateDataset(datasets)
+}
+
+async function getUserView(uid, date, date2) {
+    let datasets = [];
+    let text = [];
     await getUserTimes(uid, date, date2).then(async (doc) => {
         let data = [];
         let label = [];
@@ -459,16 +421,18 @@ async function setUserData() {
                     }
                 )
 
-                hoverText.push(
+                text.push(
                     {
                         label: label
                     }
                 )
             });
         }
+
     });
-    updateDataset(datasets)
+    return {datasets, text}
 }
+
 function processActions(actions, date) {
     let data = [];
     let label = [];
@@ -623,3 +587,16 @@ function updateLabel(labels) {
     userStats.update();
 }
 
+function getMondayToday() {
+    const today = new Date();
+    today.setHours(23, 59, 59, 999)
+    let date2 = today.getTime();
+    const dayOfWeek = today.getDay();
+    const timeToMonday = (dayOfWeek + 6) % 7;
+    let monday = new Date()
+    monday.setDate(today.getDate() - timeToMonday);
+    monday.setHours(0, 0, 0, 0)
+    let date = monday.getTime();
+
+    return {monday: date, today: date2}
+}
