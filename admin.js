@@ -389,16 +389,16 @@ async function setUserData() {
     await updateLabel(labels)
 
     await getUserView(uid, date, date2).then((data) => {
-        datasets = data.datasets;
-        hoverText = data.text;
+        datasets.push(data.datasets)
+        hoverText.push(data.text)
     });
 
     updateDataset(datasets)
 }
 
 async function getUserView(uid, date, date2) {
-    let datasets = [];
-    let text = [];
+    let datasets;
+    let text;
     await getUserTimes(uid, date, date2).then(async (doc) => {
         let data = [];
         let label = [];
@@ -428,7 +428,7 @@ async function getUserView(uid, date, date2) {
 
             await getUser(uid).then(async (user) => {
 
-                datasets.push(
+                datasets = (
                     {
                         label: user.status.first_name + " " + user.status.last_name,
                         data: data,
@@ -436,7 +436,7 @@ async function getUserView(uid, date, date2) {
                     }
                 )
 
-                text.push(
+                text = (
                     {
                         label: label
                     }
