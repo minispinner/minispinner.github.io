@@ -89,7 +89,7 @@ async function deleteUser() {
             }),
         });
 
-        if (await response.status === 200) {
+        if (response.status === 200) {
             closeModal()
             return true;
 
@@ -521,7 +521,13 @@ async function getUserTimes(uid, startDate, endDate) {
                     end: endDate,
                 }),
             });
-            return await response.json();
+
+            if (response.status === 404) {
+                return await response.json();
+            } else {
+                return await response.json();
+            }
+
         } catch (error) {
             // Fehlerbehandlung
             console.error("Fehler in getActionsByUidBetweenTimes: ", error);
