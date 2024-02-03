@@ -1,3 +1,17 @@
+function getMondayToday() {
+    const today = new Date();
+    today.setHours(23, 59, 59, 999)
+    let date2 = today.getTime();
+    const dayOfWeek = today.getDay();
+    const timeToMonday = (dayOfWeek + 6) % 7;
+    let monday = new Date()
+    monday.setDate(today.getDate() - timeToMonday);
+    monday.setHours(0, 0, 0, 0)
+    let date = monday.getTime();
+
+    return {monday: date, today: date2}
+}
+
 async function getUsers() {
     if (await checkAuthStatus()) {
         try {
@@ -585,18 +599,4 @@ function updateLabel(labels) {
     userStats.data.labels = labels;
 
     userStats.update();
-}
-
-function getMondayToday() {
-    const today = new Date();
-    today.setHours(23, 59, 59, 999)
-    let date2 = today.getTime();
-    const dayOfWeek = today.getDay();
-    const timeToMonday = (dayOfWeek + 6) % 7;
-    let monday = new Date()
-    monday.setDate(today.getDate() - timeToMonday);
-    monday.setHours(0, 0, 0, 0)
-    let date = monday.getTime();
-
-    return {monday: date, today: date2}
 }
